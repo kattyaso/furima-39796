@@ -1,24 +1,35 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column             | Type   | Options               |
+| ------------------ | ------ | --------------------- |
+| email              | string | NOT NULL ユニーク制約 |
+| encrypted_password | string | NOT NULL              |
+| nick-name          | string | NOT NULL              |
+| last-name          | string | NOT NULL              |
+| first-name         | string | NOT NULL              |
+| birth-date         | date   | NOT NULL              |
 
-* Ruby version
+## items テーブル
 
-* System dependencies
+| Column            | Type       | Options           |
+| ----------------- | ---------- | ----------------- |
+| item              | string     | NOT NULL          |
+| fee-status        | text       | NOT NULL          |
+| sales-status      | text       | NOT NULL          |
+| schedule-delivery | text       | NOT NULL          |
+| prise             | integer    | NOT NULL          |
+| user              | references | NOT NULL 外部キー |
 
-* Configuration
+## orders テーブル
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+| Column       | Type       | Options           |
+| ------------ | ---------- | ----------------- |
+| postcode     | integer    | NOT NULL          |
+| prefecture   | text 　    | NOT NULL          |
+| city         | text       | NOT NULL          |
+| address      | text       | NOT NULL          |
+| building     | text       | NOT NULL          |
+| phone number | integer    | NOT NULL          |
+| items        | references | NOT NULL 外部キー |
