@@ -11,10 +11,10 @@
                     <mxGeometry y="26" width="240" height="134" as="geometry"/>
                 </mxCell>
                 <mxCell id="6" value="items" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;" parent="1" vertex="1">
-                    <mxGeometry x="520" y="120" width="250" height="190" as="geometry"/>
+                    <mxGeometry x="520" y="120" width="250" height="180" as="geometry"/>
                 </mxCell>
                 <mxCell id="7" value="item                 &#10;description          &#10;category_id          &#10;sales_status_id      &#10;fee_status_id        &#10;schedule_delivery_id &#10;origin_address_id    &#10;processing_time_id   &#10;price                &#10;user_id              " style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" parent="6" vertex="1">
-                    <mxGeometry y="26" width="250" height="164" as="geometry"/>
+                    <mxGeometry y="26" width="250" height="154" as="geometry"/>
                 </mxCell>
                 <mxCell id="10" value="orders" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;" parent="1" vertex="1">
                     <mxGeometry x="520" y="540" width="250" height="140" as="geometry"/>
