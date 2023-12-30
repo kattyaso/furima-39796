@@ -1,24 +1,63 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column             | Type   | Options                  |
+| ------------------ | ------ | ------------------------ |
+| email              | string | null:false , unique:true |
+| encrypted_password | string | null:false               |
+| nick_name          | string | null:false               |
+| last_name          | string | null:false               |
+| first_name         | string | null:false               |
+| last_name_kana     | string | null:false               |
+| first_name_kana    | string | null:false               |
+| birth_date         | date   | null:false               |
 
-* Ruby version
+### has_many :items
 
-* System dependencies
+### has_many:sales_recodes
 
-* Configuration
+## items テーブル
 
-* Database creation
+| Column               | Type       | Options                       |
+| -------------------- | ---------- | ----------------------------- |
+| item                 | string     | null:false                    |
+| description          | text       | null:false                    |
+| category_id          | integer    | null:false                    |
+| sales_status_id      | integer    | null:false                    |
+| fee_status_id        | integer    | null:false                    |
+| origin_address_id    | integer    | null:false                    |
+| schedule_delivery_id | integer    | null:false                    |
+| price                | integer    | null:false                    |
+| user                 | references | null:false , foreign_key:true |
 
-* Database initialization
+### belongs_to :user
 
-* How to run the test suite
+### has_one:sales_recode
 
-* Services (job queues, cache servers, search engines, etc.)
+## sales_recodes テーブル
 
-* Deployment instructions
+| Column | Type       | Options                       |
+| ------ | ---------- | ----------------------------- |
+| item   | references | null:false , foreign_key:true |
+| user   | references | null:false , foreign_key:true |
 
-* ...
+### belongs_to:user
+
+### belongs_to:item
+
+### has_one :order
+
+## orders テーブル
+
+| Column            | Type       | Options                       |
+| ----------------- | ---------- | ----------------------------- |
+| postcode          | string     | null:false                    |
+| origin_address_id | integer    | null:false                    |
+| city              | string     | null:false                    |
+| address           | string     | null:false                    |
+| building          | string     |                               |
+| phone_number      | string     | null:false                    |
+| sales_recode      | references | null:false , foreign_key:true |
+
+### belongs_to :sales_recode
