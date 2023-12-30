@@ -33,14 +33,14 @@
 
 ### belongs_to :user
 
-### has_many:sales_recodes
+### has_one:sales_recode
 
 ## sales_recodes テーブル
 
-| Column | Type       | Options                     |
-| ------ | ---------- | --------------------------- |
-| item   | references | null:false foreign_key:true |
-| user   | references | null:false foreign_key:true |
+| Column | Type       | Options                       |
+| ------ | ---------- | ----------------------------- |
+| item   | references | null:false , foreign_key:true |
+| user   | references | null:false , foreign_key:true |
 
 ### belongs_to:user
 
@@ -50,14 +50,14 @@
 
 ## orders テーブル
 
-| Column        | Type       | Options                     |
-| ------------- | ---------- | --------------------------- |
-| postcode      | string     | null:false                  |
-| prefecture_id | string     | null:false                  |
-| city          | string     | null:false                  |
-| address       | string     | null:false                  |
-| building      | string     |                             |
-| phone_number  | string     | null:false                  |
-| sales_recode  | references | null:false foreign_key:true |
+| Column            | Type       | Options                       |
+| ----------------- | ---------- | ----------------------------- |
+| postcode          | string     | null:false                    |
+| origin_address_id | integer    | null:false                    |
+| city              | string     | null:false                    |
+| address           | string     | null:false                    |
+| building          | string     |                               |
+| phone_number      | string     | null:false                    |
+| sales_recode      | references | null:false , foreign_key:true |
 
 ### belongs_to :sales_recode
