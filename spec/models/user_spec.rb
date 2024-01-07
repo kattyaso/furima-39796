@@ -4,7 +4,7 @@ RSpec.describe User, type: :model do
   before do
     @user = FactoryBot.build(:user)
   end
-  describe 'ユーザー新規登録'do
+  describe 'ユーザー情報'do
     it 'nicknameが必須であること'do
       @user.nick_name = ''
       @user.valid?
@@ -48,4 +48,51 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end
   end
+  describe '本人情報確認'do
+    it 'お名前(全角)は、名字が必須であること'do
+    @user.last_name =""
+    @user.valid?
+    expect(@user.errors.full_messages).to include "Last name can't be blank"
+    end
+    it 'お名前(全角)は、名前が必須であること'do
+    @user.first_name =""
+    @user.valid?
+    expect(@user.errors.full_messages).to include "First name can't be blank"
+    end
+    it 'お名前(全角)は、全角（漢字・ひらがな・カタカナ）での入力が必須であること'do
+    @user.last_name ="aaa"
+    @user.valid?
+    expect(@user.errors.full_messages).to include "Last name 全角文字を使用してください"
+    end
+    it ' お名前カナ(全角)は、名字が必須であること' do
+      @user.last_name_kana =""
+      @user.valid?
+      expect(@user.errors.full_messages).to include "Last name kana can't be blank"
+    end
+    it ' お名前カナ(全角)は、名前が必須であること' do
+      @user.first_name_kana =""
+      @user.valid?
+      expect(@user.errors.full_messages).to include "First name kana can't be blank"
+    end
+    it 'お名前カナ(全角)は、全角（漢字・ひらがな・カタカナ）での入力が必須であること'do
+    @user.last_name_kana ="aaa"
+    @user.valid?
+    expect(@user.errors.full_messages).to include "Last name kana 全角文字を使用してください"
+    end
+    it '生年月日が必須であること'do
+    @user.birth_date =""
+    @user.valid?
+    expect(@user.errors.full_messages).to include "Birth date can't be blank"
+    end
+  end
+
 end
+
+# "Email can't be blank",
+#  "Password is too short (minimum is 6 characters)",
+#  "Nick name can't be blank",
+#  "Last name can't be blank",
+#  "First name can't be blank",
+#  "Last name kana can't be blank",
+#  "First name kana can't be blank",
+#  "Birth date can't be blank"]
