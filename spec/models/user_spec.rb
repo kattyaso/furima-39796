@@ -5,13 +5,12 @@ RSpec.describe User, type: :model do
     @user = FactoryBot.build(:user)
   end
   describe 'ユーザー情報' do
-    context '新規登録ができるとき'do
-      it 'nickname,password,名前,名前カナ,生年月日があれば登録できる'do
-      expect(@user).to be_valid
+    context '新規登録ができるとき' do
+      it 'nickname,password,名前,名前カナ,生年月日があれば登録できる' do
+        expect(@user).to be_valid
       end
     end
-    context '新規登録ができないとき'do
-    
+    context '新規登録ができないとき' do
       it 'nicknameが必須であること' do
         @user.nick_name = ''
         @user.valid?
@@ -29,9 +28,9 @@ RSpec.describe User, type: :model do
         expect(user2.errors.full_messages).to include('Email has already been taken')
       end
       it 'メールアドレスは、@を含む必要があること' do
-        @user.email= 'testexample.com'  
+        @user.email = 'testexample.com'
         @user.valid?
-        expect(@user.errors[:email]).to include'is invalid'
+        expect(@user.errors[:email]).to include 'is invalid'
       end
       it 'パスワードが必須であること' do
         @user.password = ''
@@ -47,24 +46,23 @@ RSpec.describe User, type: :model do
       it 'パスワードは、半角数字のみでは登録できないこと' do
         @user.password = '123456'
         @user.valid?
-        expect(@user.errors.full_messages).to include "Password には英字と数字の両方を含めて設定してください"
+        expect(@user.errors.full_messages).to include 'Password には英字と数字の両方を含めて設定してください'
       end
-      it 'パスワードは、半角英字のみでは登録できないこと'do
+      it 'パスワードは、半角英字のみでは登録できないこと' do
         @user.password = 'aaaaaa'
         @user.valid?
-        expect(@user.errors.full_messages).to include "Password には英字と数字の両方を含めて設定してください"
+        expect(@user.errors.full_messages).to include 'Password には英字と数字の両方を含めて設定してください'
       end
-      it 'パスワードは、全角文字を含むと登録できないこと'do
+      it 'パスワードは、全角文字を含むと登録できないこと' do
         @user.password = '1a1a1aあ'
         @user.valid?
-        expect(@user.errors.full_messages).to include "Password には英字と数字の両方を含めて設定してください"
+        expect(@user.errors.full_messages).to include 'Password には英字と数字の両方を含めて設定してください'
       end
 
       it 'パスワードとパスワード（確認）が一致しない場合は登録できないこと' do
         @user.password = 'password123'
         @user.password_confirmation = 'differentpassword'
         @user.valid?
-        binding.pry
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
       it 'お名前(全角)は、名字が必須であること' do
