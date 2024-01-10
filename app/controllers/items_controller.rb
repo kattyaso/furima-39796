@@ -1,19 +1,30 @@
 class ItemsController < ApplicationController
   def index
-    
+
   end
-  
+
   def new
     @item = Item.new
     @categories = Category.all
-    @sales_status =Sales_Status.all
-    @fee_status =Fee_Status.all
-    @origin_address= Originaddress.all
-    @schedule_delivery =Schedule_delivery.all
+    @sales_status = SalesStatus.all
+    @fee_status = FeeStatus.all
+    @origin_address = Originaddress.all
+    @schedule_delivery = ScheduleDelivery.all
   end
+
   def create
     @item = Item.new(item_params)
-    
+
+    if @item.save
+      redirect_to root_path
+    else
+      @categories = Category.all
+      @sales_status = SalesStatus.all
+      @fee_status = FeeStatus.all
+      @origin_address = Originaddress.all
+      @schedule_delivery = Scheduledelivery.all
+      render :new, status: :unprocessable_entity
+    end
 
   end
 
