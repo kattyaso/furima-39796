@@ -8,7 +8,7 @@ class ItemsController < ApplicationController
     @categories = Category.all
     @sales_status = SalesStatus.all
     @fee_status = FeeStatus.all
-    @origin_address = Originaddress.all
+    @origin_address = OriginAddress.all
     @schedule_delivery = ScheduleDelivery.all
   end
 
@@ -21,8 +21,8 @@ class ItemsController < ApplicationController
       @categories = Category.all
       @sales_status = SalesStatus.all
       @fee_status = FeeStatus.all
-      @origin_address = Originaddress.all
-      @schedule_delivery = Scheduledelivery.all
+      @origin_address = OriginAddress.all
+      @schedule_delivery = ScheduleDelivery.all
       render :new, status: :unprocessable_entity
     end
 
