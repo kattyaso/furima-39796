@@ -20,5 +20,10 @@ class Item < ApplicationRecord
   validates :image, presence: true
   validates :item, presence: true
   validates :description, presence: true
-  validates :price, presence: true, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }
+  validates :price, numericality: {
+    only_integer: true,
+    greater_than_or_equal_to: 300,
+    less_than_or_equal_to: 9999999,
+    message: 'Half-width number and must be in the range of 300 to 9,999,999'
+  }
 end

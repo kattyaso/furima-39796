@@ -12,9 +12,7 @@ require 'rails_helper'
       end
       
       context '商品出品ができないとき' do
-         it 'ログアウト状態であればログインページへ遷移される' do
-
-         end
+       
          it '商品画像がないと出品できない' do
           @item.image = nil
           @item.valid?
@@ -30,53 +28,65 @@ require 'rails_helper'
           @item.valid?
           expect(@item.errors.full_messages).to include "Description can't be blank"
          end
-         it 'カテゴリーの情報が必須であること' do
-          @item.category_id = ''
+         it 'カテゴリーに「---」が選択されている場合は出品できない' do
+          @item.category_id = '1'
           @item.valid?
           expect(@item.errors.full_messages).to include "Category can't be blank"
          end
 
-         it '商品の状態の情報がないと出品できない' do
-          @item.sales_status_id = ''
+         it '商品の状態に「---」が選択されている場合は出品できない' do
+          @item.sales_status_id = '1'
           @item.valid?
           expect(@item.errors.full_messages).to include "Sales status can't be blank"
          end
-         it '配送料の負担の情報がないと出品できない' do
-          @item.fee_status_id = ''
+         it '配送料の負担に「---」が選択されている場合は出品できない' do
+          @item.fee_status_id = '1'
           @item.valid?
           expect(@item.errors.full_messages).to include "Fee status can't be blank"
          end
-         it '配送元の地域の情報がないと出品できない' do
-          @item.origin_address_id = ''
+         it '配送元の地域に「---」が選択されている場合は出品できない' do
+          @item.origin_address_id = '1'
           @item.valid?
           expect(@item.errors.full_messages).to include "Origin address can't be blank"
          end
-         it '発送までの日数の情報がないと出品できない'do
-         @item.schedule_delivery_id = ''
+         it '発送までの日数に「---」が選択されている場合は出品できない'do
+         @item.schedule_delivery_id = '1'
          @item.valid?
          expect(@item.errors.full_messages).to include "Schedule delivery can't be blank"
          end
          it '価格の情報がないと出品できない' do
           @item.price = ''
           @item.valid?
-          expect(@item.errors.full_messages).to include "Price can't be blank"
+          expect(@item.errors.full_messages).to include "Price Half-width number and must be in the range of 300 to 9,999,999"
          end
          it '価格は300以下では出品できない' do
           @item.price ='299'
           @item.valid?
-          expect(@item.errors.full_messages).to include "Price must be greater than or equal to 300"
+          expect(@item.errors.full_messages).to include "Price Half-width number and must be in the range of 300 to 9,999,999"
          end
          it '価格は10,000,000円以上では出品できない' do
           @item.price ='10000000'
           @item.valid?
-          expect(@item.errors.full_messages).to include  "Price must be less than or equal to 9999999"
+          expect(@item.errors.full_messages).to include  "Price Half-width number and must be in the range of 300 to 9,999,999"
          end
          it '価格は全角数値では保存できない' do
           @item.price = '１００００' 
-            @item.valid?
-            expect(@item.errors.full_messages).to include  "Price is not a number"
+          @item.valid?
+          expect(@item.errors.full_messages).to include "Price Half-width number and must be in the range of 300 to 9,999,999"
          end
+         it '小数点が入ると出品できない'do
+          @item.price = '1000.1'
+          @item.valid?
+          expect(@item.errors.full_messages).to include "Price Half-width number and must be in the range of 300 to 9,999,999"
 
+         end
+         it 'userが紐づいていない場合は登録できない' do
+          @item.user = nil
+          @item.valid?
+          expect(@item.errors.full_messages).to include('User must exist')
+
+
+         end
 
 
       end
