@@ -104,11 +104,4 @@ RSpec.describe User, type: :model do
   end
 end
 
-# "Email can't be blank",
-#  "Password is too short (minimum is 6 characters)",
-#  "Nick name can't be blank",
-#  "Last name can't be blank",
-#  "First name can't be blank",
-#  "Last name kana can't be blank",
-#  "First name kana can't be blank",
-#  "Birth date can't be blank"]
+
