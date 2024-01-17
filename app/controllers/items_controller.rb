@@ -30,7 +30,11 @@ class ItemsController < ApplicationController
       @schedule_delivery = ScheduleDelivery.all
       render :new, status: :unprocessable_entity
     end
+    
 
+  end
+  def show
+    @item = Item.find(params[:id])
   end
 
 
