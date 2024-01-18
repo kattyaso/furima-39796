@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!,only:[:new]
+  before_action :set_item,only: [:edit, :update, :contributor_confirmation]
+  before_action :contributor_confirmation, only: [:edit, :update]
 
   def index
     @items=Item.order("created_at DESC")
@@ -30,11 +32,31 @@ class ItemsController < ApplicationController
       @schedule_delivery = ScheduleDelivery.all
       render :new, status: :unprocessable_entity
     end
-    
-
   end
+
   def show
     @item = Item.find(params[:id])
+  end
+
+  def edit
+    @categories = Category.all
+    @sales_status = SalesStatus.all
+    @fee_status = FeeStatus.all
+    @origin_address = OriginAddress.all
+    @schedule_delivery = ScheduleDelivery.all
+  end
+
+  def update
+    @categories = Category.all
+    @sales_status = SalesStatus.all
+    @fee_status = FeeStatus.all
+    @origin_address = OriginAddress.all
+    @schedule_delivery = ScheduleDelivery.all
+    if  @item.update(item_params)
+        redirect_to item_path(@item)
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
 
@@ -43,12 +65,12 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:item, :description, :category_id, :sales_status_id,:fee_status_id,
       :origin_address_id, :schedule_delivery_id, :price, :image ).merge(user_id: current_user.id)
     end
-    # def set_item
-    #   @item=item.find(params[:id])
-    # end
-    # def contributor_confirmation
-    #   redirect_to root_path unless current_user == @item.user
-    # end
+    def set_item
+      @item=Item.find(params[:id])
+    end
+    def contributor_confirmation
+      redirect_to root_path unless current_user == @item.user
+    end
   
   end
 
