@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!,only:[:new]
+  before_action :authenticate_user!,only:[:new, :edit]
   before_action :set_item,only: [:edit, :update, :contributor_confirmation]
   before_action :contributor_confirmation, only: [:edit, :update]
 
@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
   end
 
   def new
-    
+
     @item = Item.new
     @categories = Category.all
     @sales_status = SalesStatus.all
@@ -22,14 +22,8 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)
 
     if @item.save
-     
       redirect_to root_path
     else
-      @categories = Category.all
-      @sales_status = SalesStatus.all
-      @fee_status = FeeStatus.all
-      @origin_address = OriginAddress.all
-      @schedule_delivery = ScheduleDelivery.all
       render :new, status: :unprocessable_entity
     end
   end
@@ -39,19 +33,11 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    @categories = Category.all
-    @sales_status = SalesStatus.all
-    @fee_status = FeeStatus.all
-    @origin_address = OriginAddress.all
-    @schedule_delivery = ScheduleDelivery.all
+
   end
 
   def update
-    @categories = Category.all
-    @sales_status = SalesStatus.all
-    @fee_status = FeeStatus.all
-    @origin_address = OriginAddress.all
-    @schedule_delivery = ScheduleDelivery.all
+
     if  @item.update(item_params)
         redirect_to item_path(@item)
     else
@@ -71,6 +57,6 @@ class ItemsController < ApplicationController
     def contributor_confirmation
       redirect_to root_path unless current_user == @item.user
     end
-  
+
   end
 
