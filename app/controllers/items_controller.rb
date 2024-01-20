@@ -60,7 +60,7 @@ class ItemsController < ApplicationController
       @item=Item.find(params[:id])
     end
     def contributor_confirmation
-      redirect_to root_path unless current_user == @item.user
+      redirect_to root_path unless user_signed_in? && current_user == @item.user
     end
 
   end
