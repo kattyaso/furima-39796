@@ -1,0 +1,2 @@
+class Salesrecode < ApplicationRecord
+end
