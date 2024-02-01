@@ -11,8 +11,11 @@ RSpec.describe Order, type: :model do
         end
       end
       context '商品が購入できないとき'do
-        it ''
+        it '郵便番号が記入されていないとき'do
+          @order.postcode = ''
+          @order.valid?
+          expect(@order.errors.full_messages).to include "Postcode can't be blank"
+        end
       end
   end
-  
 end
