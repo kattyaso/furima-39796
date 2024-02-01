@@ -1,6 +1,8 @@
 FactoryBot.define do
-  factory :order do
-      postcode              { 123-4567 }
+  factory :salesrecode_order do
+      user_id               {1}
+      item_id               {1}
+      postcode              { "123-4567" }
       origin_address_id     { rand(2..48) }
       city                  { Faker::Address.city }
       address               { Faker::Address.street_address }
