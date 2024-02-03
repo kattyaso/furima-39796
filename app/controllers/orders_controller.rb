@@ -8,9 +8,7 @@ class OrdersController < ApplicationController
     @salesrecode_order = SalesrecodeOrder.new
   end
 
-  def new
-    
-  end
+
   def create
     @salesrecode_order =SalesrecodeOrder.new(order_params)
     if @salesrecode_order.valid?

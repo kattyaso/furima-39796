@@ -6,6 +6,7 @@ class SalesrecodeOrder
 
     validates :user_id
     validates :token
+    validates :item_id
     validates :postcode, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
     validates :origin_address_id, numericality: {other_than: 1, message: "can't be blank"}
     validates :city

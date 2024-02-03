@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe SalesrecodeOrder, type: :model do
   before do
     user = FactoryBot.create(:user)
-    @salesrecode_order =FactoryBot.build(:salesrecode_order,user_id: user.id)
+    item = FactoryBot.create(:item)
+    @salesrecode_order =FactoryBot.build(:salesrecode_order,user_id: user.id,item_id: item.id)
   end
   describe '配送先情報' do
       context '商品が購入できるとき'do
@@ -16,11 +17,12 @@ RSpec.describe SalesrecodeOrder, type: :model do
         end
       end
       context '商品が購入できないとき'do
-        it '郵便番号が記入されていないとき'do
-          @salesrecode_order.postcode = ''
+        it '商品が紐づいていなければ購入できない'do
+          @salesrecode_order.item_id = ''
           @salesrecode_order.valid?
-          expect(@salesrecode_order.errors.full_messages).to include "Postcode can't be blank"
+          expect(@salesrecode_order.errors.full_messages).to include "Item can't be blank"
         end
+       
         it '郵便番号は3桁-4桁の半角文字列のみ保存可能'do
           @salesrecode_order.postcode = '1234567'
           @salesrecode_order.valid?
@@ -46,11 +48,22 @@ RSpec.describe SalesrecodeOrder, type: :model do
           @salesrecode_order.valid?
           expect(@salesrecode_order.errors.full_messages).to include "Phone number can't be blank"
         end
-          it '電話番号は10桁か11桁でないと保存できない'do
+          it '電話番号は9桁以下では保存できない保存できない'do
           @salesrecode_order.phone_number = '123456789'
           @salesrecode_order.valid?
           expect(@salesrecode_order.errors.full_messages).to include "Phone number must be 10 to 11 digits"
         end
+          it '電話番号は9桁以下では保存できない保存できない'do
+          @salesrecode_order.phone_number = '123456789012'
+          @salesrecode_order.valid?
+          expect(@salesrecode_order.errors.full_messages).to include "Phone number must be 10 to 11 digits"
+        end
+          it '電話番号に半角数字以外が含まれている場合は購入できない'do
+          @salesrecode_order.phone_number = '123456789a'
+          @salesrecode_order.valid?
+          expect(@salesrecode_order.errors.full_messages).to include "Phone number must be 10 to 11 digits"
+          end
+
       end
   end
   describe 'クレジット情報'do
@@ -65,6 +78,11 @@ RSpec.describe SalesrecodeOrder, type: :model do
           @salesrecode_order.token = nil
           @salesrecode_order.valid?
           expect(@salesrecode_order.errors.full_messages).to include("Token can't be blank")
+          end
+          it "ユーザーが紐づいていなければ購入できない" do
+            @salesrecode_order.user_id = ""
+            @salesrecode_order.valid?
+            expect(@salesrecode_order.errors.full_messages).to include("User can't be blank")
           end
       end
   end
