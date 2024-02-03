@@ -1,10 +1,11 @@
 class SalesrecodeOrder
   include ActiveModel::Model
-  attr_accessor :postcode, :city, :address, :origin_address_id, :building, :phone_number, :item_id, :user_id
+  attr_accessor :postcode, :city, :address, :origin_address_id, :building, :phone_number, :item_id, :user_id, :token
 
   with_options presence: true do
 
     validates :user_id
+    validates :token
     validates :postcode, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
     validates :origin_address_id, numericality: {other_than: 1, message: "can't be blank"}
     validates :city

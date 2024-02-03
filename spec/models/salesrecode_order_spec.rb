@@ -51,7 +51,21 @@ RSpec.describe SalesrecodeOrder, type: :model do
           @salesrecode_order.valid?
           expect(@salesrecode_order.errors.full_messages).to include "Phone number must be 10 to 11 digits"
         end
+      end
+  end
+  describe 'クレジット情報'do
+      context '内容に問題ない場合' do
+          it "tokenがあれば保存ができること" do
+          expect(@salesrecode_order).to be_valid
+        end
+      end
 
+      context '内容に問題がある場合' do
+          it "tokenが空では登録できないこと" do
+          @salesrecode_order.token = nil
+          @salesrecode_order.valid?
+          expect(@salesrecode_order.errors.full_messages).to include("Token can't be blank")
+          end
       end
   end
 end

@@ -1,4 +1,5 @@
 <%= render "shared/second-header"%>
+<%= include_gon %>
 
 
 <div class='transaction-contents'>
@@ -33,10 +34,10 @@
     </div>
     <%# /支払額の表示 %>
 
-    <%= form_with model:@salesrecode_order, url:item_orders_path, local: true do |f| %>
-      <%= render 'shared/error_messages', model:@salesrecode_order %>
+    <%= form_with model:@salesrecode_order, id:'charge-form', class:'credit-card-form', url:item_orders_path, local: true do |f| %>
+    <%= render 'shared/error_messages', model:@salesrecode_order %>
     <%# カード情報の入力 %>
-    <div class='credit-card-form'>
+    <div id ='charge-form' class='credit-card-form'>
       <h1 class='info-input-haedline'>
         クレジットカード情報入力
       </h1>
