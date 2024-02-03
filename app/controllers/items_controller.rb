@@ -63,8 +63,8 @@ class ItemsController < ApplicationController
       redirect_to root_path unless current_user == @item.user
     end
     def sold_out_edit
-      if current_user == @item.user
-         Salesrecode.exists?(item_id: @item.id)
+      if current_user == @item.user && Salesrecode.exists?(item_id: @item.id)
+         
          redirect_to root_path
       end
     end
