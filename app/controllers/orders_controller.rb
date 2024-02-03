@@ -1,6 +1,8 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user! 
   before_action :set_item, only: [:index, :create]
+  before_action :slect_sold_out_item,only: [:index, :create]
+  before_action :self_order,only: [:index, :create]
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @salesrecode_order = SalesrecodeOrder.new
@@ -36,5 +38,15 @@ class OrdersController < ApplicationController
     def set_item
       @item = Item.find(params[:item_id])
     end
+    def slect_sold_out_item
+      if Salesrecode.exists?(item_id: @item.id)
+        redirect_to root_path
+      end
+    end  
+    def self_order
+      if current_user == @item.user
+         redirect_to root_path
+      end
+    end  
 end
 
