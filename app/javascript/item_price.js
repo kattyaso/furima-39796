@@ -1,4 +1,4 @@
-window.addEventListener('turbo:load', () => {
+const item_price = () => {
 
   const priceInput = document.getElementById("item-price");
   priceInput.addEventListener("input", () => {
@@ -16,4 +16,7 @@ window.addEventListener('turbo:load', () => {
 
     addProfitDom.textContent = salesProfit.toLocaleString();
   });
-});
+};
+
+window.addEventListener("turbo:load", item_price);
+window.addEventListener("turbo:render", item_price);
