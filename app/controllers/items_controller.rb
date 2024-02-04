@@ -1,7 +1,8 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!,only:[:new, :edit, :destroy]
   before_action :set_item,only: [:show, :edit, :update, :destroy, :contributor_confirmation]
-  before_action :contributor_confirmation, only: [:edit,:update,:destroy]
+  before_action :contributor_confirmation, only: [:edit, :update, :destroy]
+  before_action :sold_out_edit, only: [:edit]
 
   def index
     @items=Item.order("created_at DESC")
@@ -44,6 +45,11 @@ class ItemsController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
+  def destroy
+      @item.destroy
+      redirect_to root_path
+  end
+
 
   def destroy
     @item.destroy
@@ -62,6 +68,13 @@ class ItemsController < ApplicationController
     def contributor_confirmation
       redirect_to root_path unless current_user == @item.user
     end
+    def sold_out_edit
+      if current_user == @item.user && Salesrecode.exists?(item_id: @item.id)
+         
+         redirect_to root_path
+      end
+    end
+  
 
   end
 

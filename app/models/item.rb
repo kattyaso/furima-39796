@@ -16,6 +16,7 @@ class Item < ApplicationRecord
   validates :schedule_delivery_id,numericality:{other_than: 1 , message: "can't be blank"}
 
   belongs_to :user
+  has_one :salesrecode
   has_one_attached :image
   validates :image, presence: true
   validates :item, presence: true
