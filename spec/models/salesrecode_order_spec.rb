@@ -53,7 +53,7 @@ RSpec.describe SalesrecodeOrder, type: :model do
           @salesrecode_order.valid?
           expect(@salesrecode_order.errors.full_messages).to include "Phone number must be 10 to 11 digits"
         end
-          it '電話番号は9桁以下では保存できない保存できない'do
+          it '電話番号は12桁以下では保存できない保存できない'do
           @salesrecode_order.phone_number = '123456789012'
           @salesrecode_order.valid?
           expect(@salesrecode_order.errors.full_messages).to include "Phone number must be 10 to 11 digits"
